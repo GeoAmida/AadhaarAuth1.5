@@ -18,10 +18,11 @@
 #include <openssl/pkcs12.h>
 
 #ifdef SERVER_PRODUCTION
-#define UIDAI_PUBLIC_CERTIFICATE "/usr/local/apps/alive_auth/uid_prod.cer"
+#define UIDAI_PUBLIC_CERTIFICATE "/tmp/alive_auth/uid_prod.cer"
+#define AUA_PRIVATE_CERTIFICATE "/tmp/public.p12"
 #else
-#define UIDAI_PUBLIC_CERTIFICATE "/home/sivakumar/Desktop/uidai_auth_stage.cer"
-#define AUA_PRIVATE_CERTIFICATE "/home/sivakumar/Desktop/public.p12"
+#define UIDAI_PUBLIC_CERTIFICATE "/tmp/uidai_auth_stage.cer"
+#define AUA_PRIVATE_CERTIFICATE "/tmp/public.p12"
 #endif
 
 #define MAX_PUBKEY_SIZE   256
