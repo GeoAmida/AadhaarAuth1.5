@@ -18,9 +18,9 @@
     OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
-	Except as contained in this notice, the name of the Geodesic Limited shall not be used
-	in advertising or otherwise to promote the sale, use or other dealings in this Software
-	without prior written authorization from the Geodesic Limited.
+    Except as contained in this notice, the name of the Geodesic Limited shall not be used
+    in advertising or otherwise to promote the sale, use or other dealings in this Software
+    without prior written authorization from the Geodesic Limited.
 
 */
 
