@@ -1,5 +1,5 @@
     
-	Copyright (C) 2011 Geodesic Limited, Mumbai, India
+    Copyright (C) 2011 Geodesic Limited, Mumbai, India
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -18,11 +18,11 @@
     OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
-	Except as contained in this notice, the name of the Geodesic Limited shall not be used
-	in advertising or otherwise to promote the sale, use or other dealings in this Software
-	without prior written authorization from the Geodesic Limited.
+    Except as contained in this notice, the name of the Geodesic Limited shall not be used
+    in advertising or otherwise to promote the sale, use or other dealings in this Software
+    without prior written authorization from the Geodesic Limited.
 
-	----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 Aadhaar Auth-xml
 ----------------
@@ -32,8 +32,9 @@ Aadhaar Auth-xml
 
 Dependencies Libraries:
 ----------------------
-	* openssl
-	* xmlsec1 (if digital signature need to be generated)
+	* openssl 0.9.8 or above
+	* libxml	
+	* xmlsec1 1.2.9 or above (if digital signature need to be generated)
 
 API calls in aadhaar.c
 ----------------------
@@ -53,3 +54,4 @@ The above calls returns appropriate xml data.
 XML Security:
 ------------
  * v1.2.9 used
+ * Dependency : libxslt library
