@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>c_auth_xml: src/aadhaar.h File Reference</title>
+<title>AadhaarAuthXML: src/aadhaar.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -64,6 +64,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This function is used to generate Demographic Auth XML by sending parameter values of Aadhaar id and Name. Returns XML data.  <a href="#a339fcf41caff444d8739587e8aee08a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="aadhaar_8h.html#af8b4aea4a2205a6bf8cd8c6828b4facd">authxml_biometric</a> (char *puid, char *tmplData)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This function is used to generate Biometric Auth XML by sending parameter values of Aadhaar id and Encoded fingerprint template data. Returns XML data.  <a href="#af8b4aea4a2205a6bf8cd8c6828b4facd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="aadhaar_8h.html#aa5436602ee27ce80a36718f4547ea338">validate_uid</a> (char *uId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This function is used to validate Aadhaar ID by sending value of Aadhaar ID. Return value 0 or -1.  <a href="#aa5436602ee27ce80a36718f4547ea338"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a114e3c7bf3d55c121b4b6c0197391b48"></a><!-- doxytag: member="aadhaar.h::duid" ref="a114e3c7bf3d55c121b4b6c0197391b48" args="[16]" -->
 char&nbsp;</td><td class="memItemRight" valign="bottom"><b>duid</b> [16]</td></tr>
@@ -198,6 +200,33 @@ char&nbsp;</td><td class="memItemRight" valign="bottom"><b>duid</b> [16]</td></t
 
 </div>
 </div>
+<a class="anchor" id="aa5436602ee27ce80a36718f4547ea338"></a><!-- doxytag: member="aadhaar.h::validate_uid" ref="aa5436602ee27ce80a36718f4547ea338" args="(char *uId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int validate_uid </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>uId</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This function is used to validate Aadhaar ID by sending value of Aadhaar ID. Return value 0 or -1. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>uId</em>&nbsp;</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>value. 0 for Success, -1 for failure. </dd></dl>
+
+</div>
+</div>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -213,7 +242,7 @@ char&nbsp;</td><td class="memItemRight" valign="bottom"><b>duid</b> [16]</td></t
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue Oct 25 17:04:11 2011 for c_auth_xml by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Thu Nov 3 12:26:15 2011 for AadhaarAuthXML by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
