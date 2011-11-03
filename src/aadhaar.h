@@ -120,6 +120,15 @@ unsigned char * authxml_demographic_details(char *puid, char *pname);
  */
 unsigned char * authxml_biometric(char *puid, char *tmplData);	
 
+/*!\fn int validate_uid(char *uId)
+ * \brief This function is used to validate Aadhaar ID by sending parameter value of Aadhaar id. Return value 0 or -1.
+ *
+ * \param uId
+ *
+ * \return value. 0 for Success, -1 for failure.
+ */
+int validate_uid( char *uId );
+
 #ifdef __cplusplus
 }
 #endif
