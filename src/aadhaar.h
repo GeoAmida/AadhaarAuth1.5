@@ -84,6 +84,7 @@ extern "C" {
 #define LICENCE_KEY_ONE "MKg8njN6O+QRUmYF+TrbBUCqlrCnbN/Ns6hYbnnaOk99e5UGNhhE/xQ="
 
 char duid[16];
+char fdc[11]; // fdc attribute
 
 /*!\fn unsigned char * pidxml_demographic(char *pname)
  * \brief This function is used to generate demographic PID XML data by sending Name as parameter. Returns XML data
@@ -119,6 +120,17 @@ unsigned char * authxml_demographic_details(char *puid, char *pname);
  * \return xmldata.
  */
 unsigned char * authxml_biometric(char *puid, char *tmplData);	
+/*!\fn unsigned char * authxml_biometric_with_fdc(char *puid, char *pfdc, char *tmplData)
+ * \brief This function is used to generate Biometric Auth XML by sending parameter values of Aadhaar id, fdc value and Encoded fingerprint template data. Returns XML data
+ *
+ * \param puid
+ * \param pfdc
+ * \param tmplData
+ *
+ * \return xmldata.
+ */
+unsigned char * authxml_biometric_with_fdc(char *puid, char *pfdc, char *tmplData);
+
 
 /*!\fn int validate_uid(char *uId)
  * \brief This function is used to validate Aadhaar ID by sending parameter value of Aadhaar id. Return value 0 or -1.
