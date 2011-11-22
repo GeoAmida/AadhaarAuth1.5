@@ -185,6 +185,13 @@ unsigned char* pidxml_biometric(char *tmplData)
 	xmlSetProp(root, "ver", "1.0");
 	xmlSetProp(root, "xmlns", "http://www.uidai.gov.in/authentication/uid-auth-request-data/1.0");
 	xmlDocSetRootElement(doc, root);
+	
+	if( fdc[0] != '\0')
+	{
+		n = xmlNewNode(NULL, "Meta");
+		xmlSetProp(n, "fdc", fdc);
+		xmlAddChild(root, n);
+	}	
 
 	bios = xmlNewNode(NULL, "Bios");
 	n = xmlNewNode(NULL, "Bio");
@@ -311,6 +318,124 @@ unsigned char * authxml_biometric(char *puid, char *tmplData)
 	return ((unsigned char*)preDigSignedXmlBuff);
 #endif
 }
+
+/***************************************************
+	 Generate Biometric  - Auth Xml with Fdc
+***************************************************/
+
+unsigned char * authxml_biometric_with_fdc(char *puid, char *pfdc, char *tmplData)	
+{
+	xmlNodePtr root, n;
+	xmlDocPtr doc;
+	xmlChar *preDigSignedXmlBuff, *digSignedXmlBuff;
+	int buffersize;
+	char *pidb, *encryptedSessKey=NULL, *pload, *hmac;
+	unsigned char sessKey[32], shaHash[65];
+	unsigned char txnId[32], devId[16];
+
+	sprintf(txnId, "%d", rand());
+	strcpy(duid, puid);
+	printf("\n\nUid value is :%s\n",duid);
+
+	// Fdc attribute value
+	if (( pfdc ! = NULL ) && (strlen(pfdc) != 0))
+		strcpy(fdc, pfdc);
+	else
+		fdc[0]='\0';
+
+	doc = xmlNewDoc("1.0");
+	root = xmlNewNode(NULL, "Auth");
+	xmlSetProp(root, "xmlns", "http://www.uidai.gov.in/authentication/uid-auth-request/1.0");
+	xmlSetProp(root, "ver", "1.5");
+	xmlSetProp(root, "tid", "public");
+	xmlSetProp(root, "ac", "public");
+	xmlSetProp(root, "sa", "public");
+	xmlSetProp(root, "lk", LICENCE_KEY_ONE);
+	xmlSetProp(root, "uid", puid ? puid : "");
+	xmlSetProp(root, "txn", (const xmlChar *)txnId);
+	xmlDocSetRootElement(doc, root);
+
+	char bufExpiryStr[12];
+	char *expiry=NULL;
+	n = xmlNewNode(NULL, "Skey");
+	xmlAddChild(root, n);
+	{
+		bzero(bufExpiryStr, 12);
+		expiry = get_expiry_date(expiry);
+		parse_expiry_data(expiry, bufExpiryStr);
+		free(expiry);
+		xmlSetProp(n, "ci", bufExpiryStr);
+	}
+	
+	encryptedSessKey = uid_get_skey_data(sessKey);
+	xmlNodeSetContent(n, encryptedSessKey);
+
+	n = xmlNewNode(NULL, "Uses");
+	xmlSetProp(n, "otp", "n"); //dpin as otp
+	xmlSetProp(n, "pin", "n");
+	xmlSetProp(n, "bio", "y");
+	xmlSetProp(n, "pa", "n");
+	xmlSetProp(n, "pfa", "n");
+	xmlSetProp(n, "pi", "n");
+	xmlSetProp(n, "bt", "FMR");
+	xmlAddChild(root, n);
+
+	pidb = pidxml_biometric(tmplData);
+	n = xmlNewNode(NULL, "Data");
+	xmlAddChild(root, n);
+	pload = uid_get_aes_encrypted_data(pidb, strlen(pidb), sessKey);
+	xmlNodeSetContent(n, pload);
+
+	int res=hMacSha256(pidb, shaHash);
+
+	hmac = uid_get_aes_encrypted_data(shaHash, SHA256_LENGTH, sessKey);
+	n = xmlNewNode(NULL, "Hmac");
+	xmlAddChild(root, n);
+	xmlNodeSetContent(n, hmac);
+	free(encryptedSessKey);
+	free(hmac);
+
+	xmlDocDumpFormatMemory(doc, &preDigSignedXmlBuff, &buffersize, 1);
+
+	printf("\n\n AuthXML - 1:\n");
+	printf("\n############################################################\n%s\n", preDigSignedXmlBuff);
+
+#ifdef DEBUG	
+	
+	char str[7][256];
+
+        sprintf(str[0], "echo size of base64 plain template buff is %d >> %s", strlen(tmplData), LOG_FILE);//Data in plain XML format
+        system(str[0]);
+        sprintf(str[1], "echo size of base64 template XML buff is %d >> %s", strlen(pidb), LOG_FILE);//Data in plain XML format
+        system(str[1]);
+        sprintf(str[2], "echo size of encrypted template buff is %d >> %s", strlen(pload), LOG_FILE);//Data in encrypted XML format
+        system(str[2]);
+        sprintf(str[3], "echo size of final encrypted xmlbuff is %d >> %s", strlen(preDigSignedXmlBuff), LOG_FILE); //final Data in Encrypted XML
+        system(str[3]);
+        sprintf(str[4], "echo -------------------------------------------------- >> %s", LOG_FILE);
+        system(str[4]);
+#endif	
+	free(pidb);	
+	free(pload);
+
+#ifdef XML_SECURITY
+	printf("\n############################################################\n");
+	printf(" Digital Signature using XML Security\n\n");
+	do_digital_signature(preDigSignedXmlBuff,&digSignedXmlBuff);
+	if(preDigSignedXmlBuff)
+		free(preDigSignedXmlBuff);
+	xmlFreeDoc(doc);
+	FILE *fp = fopen("/tmp/out.xml","w");
+	fwrite(digSignedXmlBuff,1,strlen(digSignedXmlBuff),fp);
+	fclose(fp);
+	return ((unsigned char*)digSignedXmlBuff);
+#else
+
+	xmlFreeDoc(doc);
+	return ((unsigned char*)preDigSignedXmlBuff);
+#endif
+}
+
 
 /***************************************************
 	 Generate Demographic  - Auth Xml
