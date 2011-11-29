@@ -338,7 +338,7 @@ unsigned char * authxml_biometric_with_fdc(char *puid, char *pfdc, char *tmplDat
 	printf("\n\nUid value is :%s\n",duid);
 
 	// Fdc attribute value
-	if (( pfdc ! = NULL ) && (strlen(pfdc) != 0))
+	if (( pfdc != NULL ) && (strlen(pfdc) != 0))
 		strcpy(fdc, pfdc);
 	else
 		fdc[0]='\0';
