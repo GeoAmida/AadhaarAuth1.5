@@ -539,9 +539,11 @@ int uid_auth_demographic_details(char *puid, char *name)
 	
 	return res;
 }
-
+/*
+  // For Testing
 int main()
 {
-	authxml_demographic_details("123456789012","Shiva");
+	authxml_demographic_details("999999990019","Shivshankar Choudhury");
 	return 0;
 }
+*/
